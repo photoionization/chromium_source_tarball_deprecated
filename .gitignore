@@ -1,2 +1,6 @@
 *.swp
 .gclient
+.gclient_entries
+/src/
+/build/
+/depot_tools/

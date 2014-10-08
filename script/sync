@@ -1,0 +1,20 @@
+#!/bin/bash
+
+USAGE="Usage: $0 version"
+if [ $# -lt 1 ]; then echo -e "$USAGE" >&2; exit 1; fi
+
+VERSION=${1#"v"}
+
+# Goto source root.
+SOURCE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+cd "$SOURCE"
+
+export PATH=$PATH:$SOURCE/vendor/depot_tools
+
+gclient sync --nohooks --with_branch_heads
+cd src
+git fetch origin --tags
+git reset --hard $VERSION
+gclient sync --nohooks
+
+"./tools/export_tarball/export_tarball.py" --remove-nonessential-files ../chromium-$VERSION

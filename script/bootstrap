@@ -9,4 +9,4 @@ git submodule update --init --recursive
 
 export PATH=$PATH:$SOURCE/vendor/depot_tools
 
-fetch chromium
+fetch --nohooks chromium --target_os=mac,win,linux

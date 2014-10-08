@@ -1,0 +1,8 @@
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+
+script: ./script/bootstrap && ./script/sync 38.0.2125.101

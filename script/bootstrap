@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Goto source root.
+SOURCE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+cd "$SOURCE"
+
+git submodule sync
+git submodule update --init --recursive
+
+export PATH=$PATH:$SOURCE/vendor/depot_tools
+
+fetch chromium

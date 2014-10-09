@@ -23,11 +23,14 @@ import sys
 import tarfile
 
 
+TEST_DATA_DIRS = (
+    'chrome/tools/test/reference_build',
+)
+
 NONESSENTIAL_DIRS = (
     'breakpad/src/processor/testdata',
     'chrome/browser/resources/tracing/tests',
     'chrome/common/extensions/docs',
-    'chrome/tools/test/reference_build',
     'courgette/testdata',
     'data',
     'native_client/src/trusted/service_runtime/testdata',
@@ -96,6 +99,12 @@ class MyTarFile(tarfile.TarFile):
       # in a bzip2-compressed tarball.
       if 'ChangeLog' in name:
         return
+
+      # Directories that contains only test data can be safely removed.
+      for data_dir in TEST_DATA_DIRS:
+        dir_path = os.path.join(GetSourceDirectory(), data_dir)
+        if name.startswith(dir_path):
+          return
 
       # Remove contents of non-essential directories, but preserve gyp files,
       # so that build/gyp_chromium can work.

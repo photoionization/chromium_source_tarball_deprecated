@@ -24,32 +24,12 @@ import tarfile
 
 
 TEST_DATA_DIRS = (
-    'chrome/tools/test/reference_build',
-)
-
-NONESSENTIAL_DIRS = (
-    'breakpad/src/processor/testdata',
-    'chrome/browser/resources/tracing/tests',
     'chrome/common/extensions/docs',
-    'courgette/testdata',
-    'data',
-    'native_client/src/trusted/service_runtime/testdata',
-    'src/chrome/test/data',
+    'chrome/tools/test/reference_build',
     'o3d/documentation',
     'o3d/samples',
-    'o3d/tests',
-    'ppapi/examples',
-    'ppapi/native_client/tests',
-    'third_party/angle/samples/gles2_book',
-    'third_party/findbugs',
-    'third_party/hunspell_dictionaries',
-    'third_party/hunspell/tests',
-    'third_party/lighttpd',
-    'third_party/sqlite/src/test',
-    'third_party/sqlite/test',
     'third_party/trace-viewer/test_data',
-    'third_party/vc_80',
-    'third_party/xdg-utils/tests',
+    'third_party/yasm/source/patched-yasm/modules/arch/lc3b/tests',
     'third_party/yasm/source/patched-yasm/modules/arch/x86/tests',
     'third_party/yasm/source/patched-yasm/modules/dbgfmts/dwarf2/tests',
     'third_party/yasm/source/patched-yasm/modules/objfmts/bin/tests',
@@ -61,14 +41,32 @@ NONESSENTIAL_DIRS = (
     'third_party/yasm/source/patched-yasm/modules/objfmts/win64/tests',
     'third_party/yasm/source/patched-yasm/modules/objfmts/xdf/tests',
     'third_party/WebKit/LayoutTests',
-    'third_party/WebKit/Source/JavaScriptCore/tests',
-    'third_party/WebKit/Source/WebCore/ChangeLog',
-    'third_party/WebKit/Source/WebKit2',
+    'third_party/WebKit/ManualTests',
+    'third_party/WebKit/PerformanceTests',
     'third_party/WebKit/Tools/Scripts',
+)
+
+NONESSENTIAL_DIRS = (
+    'breakpad/src/processor/testdata',
+    'chrome/browser/resources/tracing/tests',
+    'courgette/testdata',
+    'data',
+    'native_client/src/trusted/service_runtime/testdata',
+    'src/chrome/test/data',
+    'o3d/tests',
+    'ppapi/examples',
+    'ppapi/native_client/tests',
+    'third_party/angle/samples/gles2_book',
+    'third_party/findbugs',
+    'third_party/hunspell_dictionaries',
+    'third_party/hunspell/tests',
+    'third_party/lighttpd',
+    'third_party/sqlite/src/test',
+    'third_party/sqlite/test',
+    'third_party/vc_80',
+    'third_party/xdg-utils/tests',
     'tools/gyp/test',
     'v8/test',
-    'webkit/data/layout_tests',
-    'webkit/tools/test/reference_build',
 )
 
 TESTDIRS = (

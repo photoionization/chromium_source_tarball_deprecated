@@ -18,4 +18,5 @@ git fetch origin --tags
 git reset --hard $VERSION
 gclient sync --nohooks --with_branch_heads
 
-./tools/export_tarball/export_tarball.py --remove-nonessential-files ../chromium-$VERSION
+cd "$SOURCE"
+./script/export_tarball --remove-nonessential-files chromium-$VERSION

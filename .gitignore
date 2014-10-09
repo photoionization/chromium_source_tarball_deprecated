@@ -5,3 +5,4 @@
 /src/
 /build/
 /depot_tools/
+/script/chrome_releases_monitor/node_modules

@@ -1,0 +1,7 @@
+{
+  "name": "chrome-releases-monitor",
+  "main": "main.js",
+  "dependencies": {
+    "feed-read": "0.0.1"
+  }
+}

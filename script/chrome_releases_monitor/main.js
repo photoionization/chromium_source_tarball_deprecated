@@ -41,9 +41,6 @@ var check = feed.bind(this, rss_url, function(err, articles) {
   if (err || articles.length == 0) return;
   if (last_date == articles[0].published) return;
 
-  if (last_date == null)
-    last_date = articles[5].published;
-
   if (last_date == null) {
     last_date = articles[0].published;
     return;

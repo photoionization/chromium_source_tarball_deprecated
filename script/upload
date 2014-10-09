@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+
+import glob
+import os
+import re
+
+from lib.github import GitHub
+
+
+SOURCE_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+REPO = 'zcbenz/chromium-source-tarball'
+
+
+def main():
+  os.chdir(SOURCE_ROOT)
+
+  github = GitHub(auth_token())
+  for f in get_tarballs():
+    version = re.search('chromium-(.*).tar.xz', f).group(1)
+    release_id = create_release_draft(github, REPO, version)
+    upload_asset(github, REPO, release_id, f)
+    publish_release(github, REPO, release_id)
+
+
+def get_tarballs():
+  return glob.glob('chromium-*.tar.xz')
+
+
+def auth_token():
+  token = os.environ.get('GITHUB_TOKEN')
+  message = ('Error: Please set the $GITHUB_TOKEN '
+             'environment variable, which is your personal token')
+  assert token, message
+  return token
+
+
+def create_release_draft(github, repo, tag):
+  try:
+    releases = github.repos(repo).releases.get()
+    for release in releases:
+      if release['tag_name'] == tag or release['name'] == tab:
+        github.repos(repo).releases(release['id']).delete()
+        break
+  except:
+    pass
+
+  data = dict(tag_name=tag, name=tag, body=tag, draft=True)
+  r = github.repos(repo).releases.post(data=data)
+  return r['id']
+
+
+def upload_asset(github, repo, release_id, file_path):
+
+  params = {'name': os.path.basename(file_path)}
+  headers = {'Content-Type': 'application/zip'}
+  with open(file_path, 'rb') as f:
+    github.repos(repo).releases(release_id).assets.post(
+        params=params, headers=headers, data=f, verify=False)
+
+
+def publish_release(github, repo, release_id):
+  data = dict(draft=False)
+  github.repos(repo).releases(release_id).patch(data=data)
+
+
+if __name__ == '__main__':
+  import sys
+  sys.exit(main())

@@ -12,9 +12,13 @@ cd "$SOURCE"
 export PATH=$PATH:$SOURCE/vendor/depot_tools
 
 gclient sync --nohooks --with_branch_heads
+
 cd src
 git fetch origin --tags
 git reset --hard $VERSION
-gclient sync --nohooks
+gclient sync --nohooks --with_branch_heads
 
-"./tools/export_tarball/export_tarball.py" --remove-nonessential-files ../chromium-$VERSION
+./tools/export_tarball/export_tarball.py --remove-nonessential-files ../chromium-$VERSION
+
+cd ..
+./script/upload

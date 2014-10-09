@@ -1,4 +1,5 @@
 *.swp
+*.pyc
 .gclient
 .gclient_entries
 /src/

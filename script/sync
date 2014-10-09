@@ -19,6 +19,3 @@ git reset --hard $VERSION
 gclient sync --nohooks --with_branch_heads
 
 ./tools/export_tarball/export_tarball.py --remove-nonessential-files ../chromium-$VERSION
-
-cd ..
-./script/upload

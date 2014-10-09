@@ -20,6 +20,7 @@ def main():
     release_id = create_release_draft(github, REPO, version)
     upload_asset(github, REPO, release_id, f)
     publish_release(github, REPO, release_id)
+    os.remove(f)
 
 
 def get_tarballs():

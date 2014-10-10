@@ -39,7 +39,7 @@ def create_release_draft(github, repo, tag):
   try:
     releases = github.repos(repo).releases.get()
     for release in releases:
-      if release['tag_name'] == tag or release['name'] == tab:
+      if release['tag_name'] == tag:
         github.repos(repo).releases(release['id']).delete()
         break
   except:

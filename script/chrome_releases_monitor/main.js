@@ -59,7 +59,7 @@ var check = feed.bind(this, rss_url, function(err, articles) {
     }
   }
 
-  last_date = articles[0].published;
+  last_date = articles[articles.length - 1].published;
 });
 
 // Start checking.

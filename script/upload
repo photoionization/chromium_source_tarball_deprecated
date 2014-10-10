@@ -45,8 +45,8 @@ def create_release_draft(github, repo, tag):
   except:
     pass
 
-  name = read_file(tag + '.title', tag)
-  body = read_file(tag + '.content', tag)
+  name = read_file(os.path.join('changelog', tag + '.title'), tag)
+  body = read_file(os.path.join('changelog', tag + '.html'), tag)
   data = dict(tag_name=tag, name=name, body=body, draft=True)
   r = github.repos(repo).releases.post(data=data)
   return r['id']

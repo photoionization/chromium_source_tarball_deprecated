@@ -2,6 +2,7 @@
   "name": "chrome-releases-monitor",
   "main": "main.js",
   "dependencies": {
-    "feed-read": "0.0.1"
+    "feed-read": "0.0.1",
+    "runas": "1.0.1"
   }
 }

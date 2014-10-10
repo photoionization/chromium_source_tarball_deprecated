@@ -2,6 +2,8 @@
 var exec = require('child_process').exec;
 var feed = require('feed-read');
 var fs = require('fs');
+var path = require('path');
+var runas = require('runas');
 
 var last_date = null;
 var rss_url = 'http://googlechromereleases.blogspot.com/atom.xml';
@@ -12,11 +14,13 @@ var upload = function() {
 
   var a = upload_queue[0];
   console.log('Snapshoting', a.version);
-  fs.writeFileSync(a.version + '.title', a.title);
-  fs.writeFileSync(a.version + '.content', a.content);
+  fs.writeFileSync(path.join('changelog', a.version + '.title'), a.title);
+  fs.writeFileSync(path.join('changelog', a.version + '.html'), a.content);
+  runas('git', ['add', 'changelog']);
+  runas('git', ['commit', 'changelog', '-m', a.version]);
+  runas('git', ['pull', '--rebase']);
+  runas('git', ['push']);
   exec('./script/sync ' + a.version + ' && ./script/upload', function() {
-    fs.unlinkSync(a.version + '.title');
-    fs.unlinkSync(a.version + '.content');
     upload_queue.shift();
     upload();
   });
@@ -38,13 +42,11 @@ var parse = function(article) {
 }
 
 var check = feed.bind(this, rss_url, function(err, articles) {
+  if (last_date == null)
+    last_date = articles[0].published;
+
   if (err || articles.length == 0) return;
   if (last_date == articles[0].published) return;
-
-  if (last_date == null) {
-    last_date = articles[0].published;
-    return;
-  }
 
   articles = articles.reverse();
   for (var i in articles) {

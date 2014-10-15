@@ -16,6 +16,7 @@ var upload = function() {
   console.log('Snapshoting', a.version);
   fs.writeFileSync(path.join('changelog', a.version + '.title'), a.title);
   fs.writeFileSync(path.join('changelog', a.version + '.html'), a.content);
+  runas('git', ['push', '--delete', 'v' + a.version]);
   runas('git', ['add', 'changelog']);
   runas('git', ['commit', 'changelog', '-m', a.version]);
   runas('git', ['pull', '--rebase']);

@@ -48,6 +48,7 @@ TEST_DATA_DIRS = (
 
 NONESSENTIAL_DIRS = (
     'breakpad/src/processor/testdata',
+    'buildtools/third_party',
     'chrome/browser/resources/tracing/tests',
     'courgette/testdata',
     'data',

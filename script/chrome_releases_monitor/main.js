@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-var exec = require('child_process').exec;
-var feed = require('feed-read');
-var fs = require('fs');
-var path = require('path');
-var runas = require('runas');
+const {exec, execSync} = require('child_process');
 
-var last_date = null;
-var rss_url = 'http://googlechromereleases.blogspot.com/atom.xml';
+const feed = require('feed-read');
+const fs = require('fs');
+const path = require('path');
+
+let last_date = null;
+let rss_url = 'http://googlechromereleases.blogspot.com/atom.xml';
 
 var upload_queue = [];
 var upload = function() {
@@ -16,11 +16,11 @@ var upload = function() {
   console.log('Snapshoting', a.version);
   fs.writeFileSync(path.join('changelog', a.version + '.title'), a.title);
   fs.writeFileSync(path.join('changelog', a.version + '.html'), a.content);
-  runas('git', ['push', '--delete', 'v' + a.version]);
-  runas('git', ['add', 'changelog']);
-  runas('git', ['commit', 'changelog', '-m', a.version]);
-  runas('git', ['pull', '--rebase']);
-  runas('git', ['push']);
+  execSync(`git push --delete v${a.version}`);
+  execSync('git add changelog');
+  execSync(`git commit changelog -m ${a.version}`);
+  execSync('git pull --rebase');
+  execSync('git push');
   exec('./script/sync ' + a.version + ' && ./script/upload', function() {
     upload_queue.shift();
     upload();

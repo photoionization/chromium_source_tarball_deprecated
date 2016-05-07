@@ -29,6 +29,7 @@ TEST_DATA_DIRS = (
     'o3d/documentation',
     'o3d/samples',
     'third_party/trace-viewer/test_data',
+    'third_party/webgl/src/sdk/tests',
     'third_party/yasm/source/patched-yasm/modules/arch/lc3b/tests',
     'third_party/yasm/source/patched-yasm/modules/arch/x86/tests',
     'third_party/yasm/source/patched-yasm/modules/dbgfmts/dwarf2/tests',

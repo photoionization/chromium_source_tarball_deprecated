@@ -19,4 +19,4 @@ git reset --hard $VERSION
 gclient sync --force --nohooks --with_branch_heads
 
 cd "$SOURCE"
-./script/export_tarball --remove-nonessential-files chromium-$VERSION
+./script/export_tarball --test-data --remove-nonessential-files chromium-$VERSION

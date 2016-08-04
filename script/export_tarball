@@ -159,8 +159,7 @@ def main(argv):
       for directory in TESTDIRS:
         archive.add(os.path.join(GetSourceDirectory(), directory),
                     arcname=os.path.join(output_basename, directory))
-    else:
-      archive.add(GetSourceDirectory(), arcname=output_basename)
+    archive.add(GetSourceDirectory(), arcname=output_basename)
   finally:
     archive.close()
 

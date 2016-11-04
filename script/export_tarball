@@ -56,7 +56,6 @@ NONESSENTIAL_DIRS = (
     'native_client/src/trusted/service_runtime/testdata',
     'src/chrome/test/data',
     'o3d/tests',
-    'ppapi/examples',
     'ppapi/native_client/tests',
     'third_party/angle/samples/gles2_book',
     'third_party/findbugs',
@@ -147,6 +146,13 @@ def main(argv):
                       '-o', 'build/util/LASTCHANGE.blink'],
                      cwd=GetSourceDirectory()) != 0:
     print 'Could not run build/util/lastchange.py to update LASTCHANGE.blink.'
+    return 1
+  if subprocess.call(['python', 'build/util/lastchange.py',
+                      '-s', 'third_party/skia',
+                      '-m', 'SKIA_COMMIT_HASH',
+                      '--header', 'skia/ext/skia_commit_hash.h'],
+                     cwd=GetSourceDirectory()) != 0:
+    print 'Could not run build/util/lastchange.py to update skia_commit_hash.h.'
     return 1
 
   output_fullname = args[0] + '.tar'

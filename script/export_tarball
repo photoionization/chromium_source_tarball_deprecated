@@ -26,8 +26,6 @@ import tarfile
 TEST_DATA_DIRS = (
     'chrome/common/extensions/docs',
     'chrome/tools/test/reference_build',
-    'o3d/documentation',
-    'o3d/samples',
     'third_party/trace-viewer/test_data',
     'third_party/webgl/src/sdk/tests',
     'third_party/yasm/source/patched-yasm/modules/arch/lc3b/tests',
@@ -111,7 +109,10 @@ class MyTarFile(tarfile.TarFile):
         dir_path = os.path.join(GetSourceDirectory(), nonessential_dir)
         if (name.startswith(dir_path) and
             os.path.isfile(name) and
-            'gyp' not in name):
+            '.gyp' not in name and
+            '.grd' not in name and
+            '.isolate' not in name and
+            '.gn' not in name):
           return
 
     tarfile.TarFile.add(self, name, arcname=arcname, recursive=recursive)

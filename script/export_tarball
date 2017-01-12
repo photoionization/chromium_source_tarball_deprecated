@@ -42,6 +42,7 @@ TEST_DATA_DIRS = (
     'third_party/WebKit/LayoutTests',
     'third_party/WebKit/ManualTests',
     'third_party/WebKit/PerformanceTests',
+    'third_party/WebKit/Source/devtools/devtools-node-modules',
     'third_party/WebKit/Tools/Scripts',
 )
 

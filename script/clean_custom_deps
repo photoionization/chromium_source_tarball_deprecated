@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+import shutil
+
+with open('.gclient', 'r') as f:
+  lines = f.readlines()
+  for line in lines:
+    if line.startswith('    "custom_deps": {'):
+      custom_deps = eval(line[19:-2])
+      for key in custom_deps:
+        try:
+          shutil.rmtree(key)
+        except OSError:
+          pass
+      break
+
+template = """
+solutions = [
+  {
+    "managed": False,
+    "name": "src",
+    "url": "https://chromium.googlesource.com/chromium/src.git",
+    "deps_file": ".DEPS.git",
+    "safesync_url": "",
+  },
+]
+target_os = ["mac", "win", "linux"]
+"""
+
+with open('.gclient', 'w') as f:
+  f.write(template)

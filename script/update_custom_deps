@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+
+import re
+
+def get_deps(lines):
+  # State machine.
+  in_vars = False
+  in_deps = False
+  dep_name = None
+
+  # Variables.
+  deps_vars = dict()
+  deps_deps = dict()
+
+  # Parse.
+  for line in lines:
+    if line == 'vars = {\n':
+      in_vars = True
+    elif line == 'deps_os = {\n':
+      in_vars = False
+      in_deps = True
+    elif line.startswith("  '") and in_vars:
+      m = re.search("'([a-z_]+)': '(.+)'", line)
+      if m:
+        deps_vars[m.group(1)] = m.group(2)
+    elif line.startswith("    '") and in_deps:
+      m = re.search("'(.+)':", line)
+      if m:
+        dep_name = m.group(1)
+    elif dep_name and in_deps:
+      m = re.search("Var\('([a-z_]+)'\) \+ '(.+)' \+ Var\('([a-z_]+)'\)", line)
+      if m:
+        deps_deps[dep_name] = deps_vars[m.group(1)] + m.group(2) + deps_vars[m.group(3)]
+      dep_name = None
+  return deps_deps
+
+
+def write_deps(deps):
+  template = """
+solutions = [
+  {
+    "managed": False,
+    "name": "src",
+    "url": "https://chromium.googlesource.com/chromium/src.git",
+    "deps_file": ".DEPS.git",
+    "safesync_url": "",
+    "custom_deps": {deps},
+  },
+]
+target_os = ["mac", "win", "linux"]
+"""
+  with open('.gclient', 'w+') as f:
+    f.write(template.replace("{deps}", str(deps)))
+
+
+with open('src/third_party/angle/DEPS.chromium', 'r') as f:
+  lines = f.readlines()
+  write_deps(get_deps(lines))

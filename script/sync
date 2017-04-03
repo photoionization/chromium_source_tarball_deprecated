@@ -11,11 +11,21 @@ cd "$SOURCE"
 
 export PATH=$PATH:$SOURCE/vendor/depot_tools
 
+./script/clean_custom_deps
 gclient sync --force --nohooks --with_branch_heads --deps=mac,win,linux,unix
 
 cd src
 git fetch origin --tags
 git reset --hard $VERSION
+gclient sync --force --nohooks --with_branch_heads --deps=mac,win,linux,unix
+
+# Update custom_deps.
+# There is a bug in gclient that when running with --nohooks, it will not
+# sync the deps in recursedeps, currently we workaround it by manually adding
+# those deps to custom_deps.
+cd -
+./script/update_custom_deps
+cd src
 gclient sync --force --nohooks --with_branch_heads --deps=mac,win,linux,unix
 
 cd "$SOURCE"

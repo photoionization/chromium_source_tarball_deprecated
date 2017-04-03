@@ -11,12 +11,12 @@ cd "$SOURCE"
 
 export PATH=$PATH:$SOURCE/vendor/depot_tools
 
-gclient sync --force --nohooks --with_branch_heads
+gclient sync --force --nohooks --with_branch_heads --deps=mac,win,linux,unix
 
 cd src
 git fetch origin --tags
 git reset --hard $VERSION
-gclient sync --force --nohooks --with_branch_heads
+gclient sync --force --nohooks --with_branch_heads --deps=mac,win,linux,unix
 
 cd "$SOURCE"
 ./script/export_tarball --test-data --remove-nonessential-files chromium-$VERSION

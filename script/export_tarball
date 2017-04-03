@@ -73,7 +73,6 @@ TESTDIRS = (
     'chrome/test/data',
     'content/test/data',
     'media/test/data',
-    'net/data',
 )
 
 

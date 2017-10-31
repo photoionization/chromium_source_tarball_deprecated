@@ -33,3 +33,7 @@ $ ./script/upload
 The source tarballs in this repo are kept updated with the
 [Chrome Releases](http://googlechromereleases.blogspot.com) blog, you can find
 the script under `script/chrome_releases_monitor/`.
+
+## License
+
+The code of this project is published under public domain.

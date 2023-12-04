@@ -1,3 +1,7 @@
+# Deprecated for https://github.com/photoionization/chromium_source_tarball
+
+---
+
 # Chromium source tarball
 
 Automatically generate source tarballs for Chromium releases channel, and upload
